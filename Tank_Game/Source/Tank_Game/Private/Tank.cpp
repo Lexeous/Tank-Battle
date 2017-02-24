@@ -19,6 +19,12 @@ void ATank::BeginPlay()
 	
 }
 
+void ATank::AimAt(FVector HitLocation)
+{
+	auto OurTankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s aiming at %s"),*OurTankName, *HitLocation.ToString())
+}
+
 // Called every frame
 void ATank::Tick(float DeltaTime)
 {
