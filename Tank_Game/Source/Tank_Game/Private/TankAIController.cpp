@@ -19,7 +19,7 @@ void ATankAIController::Tick(float DeltaTime)
 	auto ControlledTank = Cast<ATank>(GetPawn());
 	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
 	
-	if (!PlayerTank) { return; } //Protects pointer
+	if (!ensure(PlayerTank)) { return; } //Protects pointer
 	
 	if (PlayerTank)
 	{
