@@ -3,7 +3,23 @@
 #include "Tank_Game.h"
 #include "TankTracks.h"
 
+UTankTracks::UTankTracks()
+{
+	PrimaryComponentTick.bCanEverTick = true;
+}
 
+void UTankTracks::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+
+	auto SlipSpeed = FVector::DotProduct(GetRightVector(), GetComponentVelocity());
+	
+	auto CorrectionAcceleration = -SlipSpeed / DeltaTime * GetRightVector();
+
+	auto TankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());
+	auto CorrectionForce = (TankRoot->GetMass() * CorrectionAcceleration) / 2; //Two tracks
+
+	TankRoot->AddForce(CorrectionForce);
+}
 void UTankTracks::SetThrottle(float Throttle)
 {
 	
